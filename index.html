@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula NFT | Premium Stars Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --accent: #6366f1; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .aurora-bg { background: radial-gradient(circle at 50% 50%, #1e1b4b, #0f172a, #000); }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="aurora-bg text-white min-h-screen">
+
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-cyan-500"></div>
+    </div>
+
+    <nav class="glass sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">NEBULA</div>
+        <div class="hidden md:flex space-x-6">
+            <button onclick="renderPage('home')" class="hover:text-cyan-400 transition">Home</button>
+            <button onclick="renderPage('cases')" class="hover:text-cyan-400 transition">Cases</button>
+            <button onclick="renderPage('shop')" class="hover:text-cyan-400 transition">Shop</button>
+        </div>
+        <button id="tg-login" class="bg-indigo-600 hover:bg-indigo-500 px-6 py-2 rounded-full font-semibold shadow-lg shadow-indigo-500/30">Connect Telegram</button>
+    </nav>
+
+    <main id="app" class="container mx-auto px-4 py-8">
+        </main>
+
+    <script>
+        // 1. Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-tvZ6EUAD_QqmPlpBzXJDyr3ra_VQ-Ws",
+            authDomain: "ruminenewsbot.firebaseapp.com",
+            databaseURL: "https://ruminenewsbot-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "ruminenewsbot",
+            storageBucket: "ruminenewsbot.firebasestorage.app",
+            messagingSenderId: "744143799736",
+            appId: "1:744143799736:web:80bea4b251b83b33c4bb4d"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // 2. Application Router
+        const pages = {
+            home: `
+                <section class="text-center py-20">
+                    <h1 class="text-6xl font-extrabold mb-6 animate-pulse">Experience the Future of Gaming</h1>
+                    <p class="text-xl text-slate-400 mb-8">Open NFTs, Win Stars, Elevate your Digital Assets.</p>
+                    <button class="bg-cyan-500 hover:bg-cyan-400 text-black px-10 py-4 rounded-xl font-bold transform hover:scale-105 transition">Explore Cases</button>
+                </section>
+            `,
+            cases: `<div class="grid grid-cols-1 md:grid-cols-3 gap-6"> </div>`
+        };
+
+        function renderPage(page) {
+            document.getElementById('app').innerHTML = pages[page] || pages.home;
+        }
+
+        // 3. Init
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                renderPage('home');
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
+
