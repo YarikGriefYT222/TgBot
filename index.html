@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фунт Банк</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #1c1c1e; color: white; text-align: center; padding: 20px; }
+        .card { background: #2c2c2e; padding: 20px; border-radius: 15px; margin-bottom: 20px; }
+        .price { font-size: 24px; font-weight: bold; color: #ff9f0a; }
+        button { background: #007aff; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 16px; width: 100%; margin-top: 10px; cursor: pointer; }
+        .roulette { border: 2px solid #ff9f0a; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h3>Курс Фунта (FNT)</h3>
+        <div class="price" id="fnt-price">1 FNT = 5.2 Звезд</div>
+    </div>
+
+    <div class="card">
+        <h3>Ваш баланс</h3>
+        <p>FNT: <span id="fnt-balance">100</span></p>
+        <p>Звезды: <span id="star-balance">50</span></p>
+    </div>
+
+    <button onclick="buyFnt()">Купить FNT</button>
+    <button onclick="sellFnt()">Продать FNT</button>
+    
+    <div class="card roulette">
+        <h3>Рулетка (x0, x0.5, x1, x3)</h3>
+        <input type="number" id="bet-amount" placeholder="Ставка в звездах" style="width: 80%; padding: 10px;">
+        <button onclick="spin()">Крутить!</button>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+
+        function buyFnt() {
+            // Здесь будет вызов API вашего бота
+            tg.sendData(JSON.stringify({action: "buy", amount: 10}));
+        }
+
+        function spin() {
+            let amount = document.getElementById('bet-amount').value;
+            tg.sendData(JSON.stringify({action: "spin", bet: amount}));
+        }
+    </script>
+</body>
+</html>
+
